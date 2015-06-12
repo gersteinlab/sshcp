@@ -4,7 +4,7 @@ import subprocess, sys, os, getopt
 from subprocess import PIPE,call
 
 def main(argv):
-        chunk = '20'
+        chunk = 20
         keyfile = ''
         hostname = ''
         path = ''
