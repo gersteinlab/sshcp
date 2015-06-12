@@ -1,7 +1,7 @@
 #!/usr/bin/python 
 
 import subprocess, sys, os, getopt
-from subprocess import PIPE,Popen,call
+from subprocess import PIPE,call
 
 def main(argv):
         keyfile = ''
