@@ -4,6 +4,7 @@ import subprocess, sys, os, getopt
 from subprocess import PIPE,call
 
 def main(argv):
+        chunk = 20
         keyfile = ''
         hostname = ''
         path = ''
@@ -27,6 +28,9 @@ def main(argv):
                         path = arg
                 elif opt in ("-k"):
                         keyfile = arg
+                else:
+                        print 'sshcp.py -f <filename> -h <hostname> -p <targetpath> -k <keyfile>'
+                        sys.exit(2)
 
         filesize = os.stat(filename).st_size
         counter = 0
@@ -35,8 +39,8 @@ def main(argv):
         while ( counter*gbyte < filesize):
                 index=counter*gbyte
                 print ("counter x gbyte: %s" % index) 
-                call ( "dd bs=1024 if=%s skip=%sM count=80M | ssh -i %s %s \"cat >> %s%s.tmp \" " % ( filename, counter, keyfile, hostname, path, filename ), shell=True )  
-                counter = counter + 80
+                call ( "dd bs=1024 if=%s skip=%sM count=%sM | ssh -i %s %s \"cat >> %s%s.tmp \" " % ( filename, counter, chunk, keyfile, hostname, path, filename ), shell=True )  
+                counter = counter + chunk
 
         call ("ssh -i %s %s \"mv %s%s.tmp %s%s \"" % (keyfile, hostname, path, filename, path, filename), shell=True )
 
