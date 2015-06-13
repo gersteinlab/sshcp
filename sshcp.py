@@ -1,7 +1,7 @@
 #!/usr/bin/python 
 
 import subprocess, sys, os, getopt
-from subprocess import PIPE,call
+from subprocess import call
 
 def main(argv):
         chunk = 20
